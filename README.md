@@ -1,4 +1,6 @@
 # serverless-terraform-variables
+[![Build Status](https://travis-ci.org/sbchapin/serverless-terraform-variables.svg?branch=master)](https://travis-ci.org/sbchapin/serverless-terraform-variables)
+
 Interpolation of [terraform output variables](https://www.terraform.io/intro/getting-started/outputs.html) into a [serverless configuration variable source](https://serverless.com/framework/docs/providers/aws/guide/variables#current-variable-sources).
 
 Use terraform to manage the breadth of your networking, data, and auth layers, while using serverless to keep the quickly moving pieces moving quickly.
