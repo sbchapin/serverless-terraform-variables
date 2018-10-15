@@ -2,6 +2,8 @@
 [![Build Status](https://travis-ci.org/sbchapin/serverless-terraform-variables.svg?branch=master)](https://travis-ci.org/sbchapin/serverless-terraform-variables)
 [![dependencies Status](https://david-dm.org/sbchapin/serverless-terraform-variables/status.svg)](https://david-dm.org/sbchapin/serverless-terraform-variables)
 [![devDependencies Status](https://david-dm.org/sbchapin/serverless-terraform-variables/dev-status.svg)](https://david-dm.org/sbchapin/serverless-terraform-variables?type=dev)
+[![npm](https://img.shields.io/npm/v/serverless-terraform-variables.svg)](https://www.npmjs.com/package/serverless-terraform-variables)
+
 
 Interpolation of [terraform output variables](https://www.terraform.io/intro/getting-started/outputs.html) into a [serverless configuration variable source](https://serverless.com/framework/docs/providers/aws/guide/variables#current-variable-sources).
 
