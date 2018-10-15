@@ -1,0 +1,12 @@
+# Do not git commit...
+
+# local build:
+node_modules
+npm-debug.log
+
+# code coverage:
+.nyc_output
+
+# editors:
+.idea/*
+.vscode/*

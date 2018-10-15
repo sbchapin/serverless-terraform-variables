@@ -1,0 +1,53 @@
+{
+  "name": "serverless-terraform-variables",
+  "version": "0.1.0",
+  "description": "Serverless plugin to retrieve terraform output variables for interpolation in serverless configuration.",
+  "author": "Sam Chapin <chap.s.b@gmail.com>",
+  "license": "MIT",
+  "main": "src/serverless-terraform-variables.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sbchapin/serverless-terraform-variables.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sbchapin/serverless-terraform-variables/issues"
+  },
+  "homepage": "https://github.com/sbchapin/serverless-terraform-variables",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [
+    "serverless",
+    "terraform",
+    "variable",
+    "variables",
+    "interpolate",
+    "interpolation"
+  ],
+  "scripts": {
+    "lint:all": "eslint --config .eslintrc.json . --ext .js",
+    "lint:file": "eslint --config .eslintrc.json",
+    "fix:all": "eslint --config .eslintrc.json . --ext .js --fix",
+    "fix:file": "eslint --config .eslintrc.json --fix",
+    "test": "nyc mocha --recursive test/**/*.test.js",
+    "test:all": "nyc mocha --recursive test/**/*.test.js",
+    "test:file": "nyc mocha",
+    "test:watch": "mocha --watch"
+  },
+  "devDependencies": {
+    "ajv": "^6.5.4",
+    "chai": "4.2.0",
+    "dirty-chai": "2.0.1",
+    "eslint": "5.6.1",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-config-prettier": "3.1.0",
+    "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-prettier": "3.0.0",
+    "mocha": "5.2.0",
+    "nyc": "13.0.1",
+    "prettier": "1.14.3",
+    "serverless": "^1.32.0",
+    "sinon": "6.3.5",
+    "sinon-chai": "3.2.0"
+  }
+}

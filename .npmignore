@@ -1,0 +1,12 @@
+# Do not publish...
+
+# configuration:
+.eslintignore
+.eslintrc.json
+.prettierrc.json
+
+# test files:
+test
+
+# code coverage:
+.nyc_output
