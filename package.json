@@ -1,6 +1,6 @@
 {
   "name": "serverless-terraform-variables",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Serverless plugin to retrieve terraform output variables for interpolation in serverless configuration.",
   "author": "Sam Chapin <chap.s.b@gmail.com>",
   "license": "MIT",
