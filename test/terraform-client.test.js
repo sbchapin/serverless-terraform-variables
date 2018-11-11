@@ -28,7 +28,7 @@ describe('The Terraform client used by the plugin', () => {
       const tfClient = new TerraformClient(stubbedStringOptions);
       tfClient.getOutputVariable('terraform_output_variable_name');
       expect(spyingExecSync).to.have.been.calledWith(
-        'terraform output terraform_output_variable_name',
+        'terraform output terraform_output_variable_name'
       );
     });
   });

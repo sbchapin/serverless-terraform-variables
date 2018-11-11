@@ -21,6 +21,7 @@ class TerraformClient {
         `Problem retrieving version of terraform.\n` +
           `  Terraform must be installed to use serverless-terraform-variables.\n` +
           `  Internal error message follows: ${err.message}`,
+          err
       );
     }
     // Sanity check for terraform state:
@@ -31,6 +32,7 @@ class TerraformClient {
         `Could not retrieve terraform state.\n` +
           `  Make sure you have initialized terraform and acquired state via 'terraform init' with the correct terraform backend.\n` +
           `  Internal error message follows: ${err.message}`,
+          err
       );
     }
     // Sanity check for terraform outputs:
@@ -41,6 +43,7 @@ class TerraformClient {
         `Could not retrieve terraform output from terraform state.\n` +
           `  Make sure you have initialized terraform and can acquired outputs from the terraform state via 'terraform output' command.\n` +
           `  Internal error message follows: ${err.message}`,
+          err
       );
     }
   }
@@ -67,6 +70,7 @@ class TerraformClient {
         `Could not retrieve terraform output variable of name '${variableName}' from terraform state.\n` +
           `  Make sure you have defined an output of that name in terraform.\n` +
           `  Internal error message follows: ${err.message}`,
+          err
       );
     }
   }
