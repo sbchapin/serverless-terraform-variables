@@ -17,23 +17,63 @@ Simply stated, it allows this:
 resource "aws_sqs_queue" "terraform_queue" {
   name = "terraform-example-queue"
 }
-output "sqs_id" {
+output "sqs_id" { // <- !!!
   value = "${aws_sqs_queue.terraform_queue.id}"
 }
 ```
 
 `serverless.yml`:
 ```yml
+plugins:
+  - serverless-terraform-variables
 functions:
   compute:
     handler: handler.compute
     events:
-      - sqs: ${terraform:sqs_id}
+      - sqs: ${terraform:sqs_id} # <- !!!
 ```
 
 ## Usage
 
-The quickest way to get the idea is to see the example.  Contained in `./example/` is a stand-alone Ping/Pong HTTP GET lambda function.  It contains the terraform neccessary for it to operate, so make sure the terraform state is available before invoking serverless.  Or don't, and see the meaningful error messages.
+To **install** this to your project:
+```sh
+npm install --save serverless-terraform-variables
+```
+...then add to `serverless.yml`:
+```yaml
+# ...
+plugins:
+  - serverless-terraform-variables
+# ...
+```
+
+To **use** it in your project, create some terraform:
+```hcl
+resource "aws_s3_bucket" "serverless_deployment" {
+  bucket = "yournamespace.serverless"
+}
+output "serverless_bucket" {
+  value = "${aws_s3_bucket.serverless_deployment.id}"
+}
+```
+...add it to terraform state:
+```sh
+terraform init
+terraform apply
+```
+...then use the outputs in your `serverless.yml`:
+```yaml
+# ...
+provider:
+  name: aws
+  runtime: nodejs8.10
+  deploymentBucket: ${terraform:serverless_bucket}
+# ...
+```
+
+## Dive deeper
+
+The quickest way to get the idea is to see the example.  Contained in `./example/` is a stand-alone Ping/Pong HTTP GET lambda function.  It contains the terraform necessary to create the network infrastructure and code deployment bucket, so make sure the terraform state is available before invoking serverless.  Or don't, and see the meaningful error messages.
 
 ```sh
 # Setup:
@@ -57,16 +97,22 @@ terraform destroy
 # aws s3 rm --profile ${aws_profile} --recursive s3://${namespace}.serverless/serverless/serverless-terraform-variables-simple-http-endpoint/dev/
 ```
 
-## Contribute
+## Gotchas
+- [ ] **Serverless cli must be installed** (`npm install -g serverless`).
+- [ ] **Terraform cli must be installed** ([`brew install terraform`, probably](https://learn.hashicorp.com/terraform/getting-started/install.html)).
+- [ ] **Terraform version must be compatible with the tfstate used** (`terraform -v` to check - if terraform not previously init, don't worry about this).
+- [ ] **Terraform must be initialized** in the directory Serverless is executed in. (`terraform init` should have been executed before any `serverless` command)
+- [ ] **Terraform must be able to show outputs** referenced by Serverless. (`terraform show` should execute successfully)
 
-`!!!TODO before merge!!!`
+# Currently a *high-functioning proof-of-concept*.
 
-```sh
-npm test
-```
-## Currently work-in-progress, but the initial commit is a fully functioning prototype.
+This code represents a rough implementation of a good idea.  Not suggested for production usage, existent only to show the potential of what _could_ be.
 
-## Why?
+If it wasn't immediately obvious, **this plugin shells out to use terraform directly to parse state**.  It does not do any destructive or constructive terraform operations.  You can find the details of what terraform commands are used under `./plugin/src/terraform-client.js`.
+
+If you're cool with that, and your operators can provide a consistent operations environment where `terraform` and `serverless` are both versioned and consistent...  There's a future for this project with you involved.
+
+# Why?
 
 **Terraform** and **Serverless** *can* serve the same purpose, but they do so with varying levels of success.
 
