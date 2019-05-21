@@ -1,0 +1,24 @@
+service: serverless-terraform-variables-example
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+plugins:
+  - serverless-terraform-variables
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  profile: ${terraform:aws_profile}
+  region: ${terraform:aws_region}
+  deploymentBucket: ${terraform:serverless_bucket}
+
+functions:
+  ping:
+    handler: handler.endpoint
+    vpc:
+      subnetIds:
+        — ${terraform:ping_subnet_id}
+    events:
+      - http:
+          path: ping
+          method: get

@@ -9,5 +9,8 @@
 .travis.yml
 test
 
+# example project
+example
+
 # code coverage:
 .nyc_output

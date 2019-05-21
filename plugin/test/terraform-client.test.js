@@ -15,10 +15,10 @@ describe('The Terraform client used by the plugin', () => {
   const spyingExecSync = sinon.spy(stubbedStringOptions, 'execSync');
 
   describe('upon immediate creation', () => {
-    it('should call out to shell for `terraform version`, `terraform state show`, and `terraform output`', () => {
+    it('should call out to shell for `terraform version`, `terraform state list`, and `terraform output`', () => {
       const _ = new TerraformClient(stubbedStringOptions); // eslint-disable-line no-unused-vars
       expect(spyingExecSync).to.have.been.calledWith('terraform version');
-      expect(spyingExecSync).to.have.been.calledWith('terraform state show');
+      expect(spyingExecSync).to.have.been.calledWith('terraform state list');
       expect(spyingExecSync).to.have.been.calledWith('terraform output');
     });
   });
