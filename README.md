@@ -35,7 +35,7 @@ functions:
 
 ## Usage
 
-To **install** this to your project:
+#### To **install** this to your project...
 ```sh
 npm install --save serverless-terraform-variables
 ```
@@ -47,7 +47,8 @@ plugins:
 # ...
 ```
 
-To **use** it in your project, create some terraform:
+#### To **use** it in your project...
+Create some terraform:
 ```hcl
 resource "aws_s3_bucket" "serverless_deployment" {
   bucket = "yournamespace.serverless"
@@ -69,6 +70,18 @@ provider:
   runtime: nodejs8.10
   deploymentBucket: ${terraform:serverless_bucket}
 # ...
+```
+
+#### To **develop** the plugin...
+**Fork** it, **git** it, **commit** it, **PR** it:
+```sh
+# Setup:
+git clone git@github.com:sbchapin/serverless-terraform-variables.git
+cd ./serverless-terraform-variables/plugin/
+npm install
+
+# Test:
+npm test
 ```
 
 ## Dive deeper
