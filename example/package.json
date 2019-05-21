@@ -1,0 +1,14 @@
+{
+  "name": "serverless-terraform-variables-example",
+  "version": "0.0.0",
+  "description": "Example demonstrates how to setup a simple HTTP GET endpoint with a network defined by terraform",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sbchapin/serverless-terraform-variables.git"
+  },
+  "devDependencies": {
+    "serverless": "^1.43.0",
+    "serverless-terraform-variables": "file:../plugin"
+  }
+}

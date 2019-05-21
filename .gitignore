@@ -3,6 +3,11 @@
 # local build:
 node_modules
 npm-debug.log
+.serverless
+.terraform
+.terraform.tfstate*
+terraform.tfstate
+terraform.tfstate.backup
 
 # code coverage:
 .nyc_output

@@ -31,7 +31,39 @@ functions:
       - sqs: ${terraform:sqs_id}
 ```
 
+## Usage
 
+The quickest way to get the idea is to see the example.  Contained in `./example/` is a stand-alone Ping/Pong HTTP GET lambda function.  It contains the terraform neccessary for it to operate, so make sure the terraform state is available before invoking serverless.  Or don't, and see the meaningful error messages.
+
+```sh
+# Setup:
+git clone git@github.com:sbchapin/serverless-terraform-variables.git
+cd ./serverless-terraform-variables/example/
+npm install
+
+# Deploy:
+terraform init
+terraform apply # !!!WARNING!!! will create a VPC, subnet, and gateway using _your_ AWS Account.
+serverless deploy # !!!WARNING!!! will create lambdas, cloudwatch log groups, and API gateway endpoints using _your_ AWS Account.
+
+# Experiment:
+serverless invoke -f ping
+curl -XGET https://deployment_specific_ApiGatewayRestApi_token_goes_here.execute-api.us-west-2.amazonaws.com/dev/ping
+
+# Cleanup:
+serverless remove
+terraform destroy
+# note that you may need to clear the objects serverless has deployed for you:
+# aws s3 rm --profile ${aws_profile} --recursive s3://${namespace}.serverless/serverless/serverless-terraform-variables-simple-http-endpoint/dev/
+```
+
+## Contribute
+
+`!!!TODO before merge!!!`
+
+```sh
+npm test
+```
 ## Currently work-in-progress, but the initial commit is a fully functioning prototype.
 
 ## Why?

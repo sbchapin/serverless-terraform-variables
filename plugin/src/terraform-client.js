@@ -26,7 +26,7 @@ class TerraformClient {
     }
     // Sanity check for terraform state:
     try {
-      this.execSync('terraform state show');
+      this.execSync('terraform state list');
     } catch (err) {
       throw new Error(
         `Could not retrieve terraform state.\n` +
