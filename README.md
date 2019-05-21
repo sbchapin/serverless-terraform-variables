@@ -50,17 +50,25 @@ plugins:
 #### To **use** it in your project...
 Create some terraform:
 ```hcl
+// Optionally configure your state storage:
+terraform {
+  backend "consul" {}
+}
+// Create resources
 resource "aws_s3_bucket" "serverless_deployment" {
   bucket = "yournamespace.serverless"
 }
+// Expose them to serverless via output variables
 output "serverless_bucket" {
   value = "${aws_s3_bucket.serverless_deployment.id}"
 }
 ```
-...add it to terraform state:
+...initialize and update state:
 ```sh
 terraform init
 terraform apply
+# ...or...
+terraform state pull
 ```
 ...then use the outputs in your `serverless.yml`:
 ```yaml
@@ -84,7 +92,7 @@ npm install
 npm test
 ```
 
-## Dive deeper
+## Example
 
 The quickest way to get the idea is to see the example.  Contained in `./example/` is a stand-alone Ping/Pong HTTP GET lambda function.  It contains the terraform necessary to create the network infrastructure and code deployment bucket, so make sure the terraform state is available before invoking serverless.  Or don't, and see the meaningful error messages.
 
@@ -113,17 +121,16 @@ terraform destroy
 ## Gotchas
 - [ ] **Serverless cli must be installed** (`npm install -g serverless`).
 - [ ] **Terraform cli must be installed** ([`brew install terraform`, probably](https://learn.hashicorp.com/terraform/getting-started/install.html)).
-- [ ] **Terraform version must be compatible with the tfstate used** (`terraform -v` to check - if terraform not previously init, don't worry about this).
-- [ ] **Terraform must be initialized** in the directory Serverless is executed in. (`terraform init` should have been executed before any `serverless` command)
-- [ ] **Terraform must be able to show outputs** referenced by Serverless. (`terraform show` should execute successfully)
+- [ ] **Terraform must be initialized in the directory Serverless is executed in.** (`terraform init` should have been executed before any `serverless` command)
+- [ ] **Terraform must be able to show outputs referenced by Serverless.** (`terraform show` should execute successfully)
 
 # Currently a *high-functioning proof-of-concept*.
 
 This code represents a rough implementation of a good idea.  Not suggested for production usage, existent only to show the potential of what _could_ be.
 
-If it wasn't immediately obvious, **this plugin shells out to use terraform directly to parse state**.  It does not do any destructive or constructive terraform operations.  You can find the details of what terraform commands are used under `./plugin/src/terraform-client.js`.
+If it wasn't immediately obvious, **this plugin shells out to use terraform directly to parse state**.  It does not do any destructive or constructive terraform operations - that's up to you.  You can find the details of what terraform commands are used under `./plugin/src/terraform-client.js`.
 
-If you're cool with that, and your operators can provide a consistent operations environment where `terraform` and `serverless` are both versioned and consistent...  There's a future for this project with you involved.
+If your operators can provide a consistent operations environment where `terraform` and `serverless` are both versioned and consistent...  There's a future for this project with you involved.
 
 # Why?
 
